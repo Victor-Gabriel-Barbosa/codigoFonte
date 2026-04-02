@@ -2,6 +2,8 @@
 
 Este repositório contém o projeto final da disciplina **Programação Orientada a Objetos II (POO2)**, onde desenvolvemos uma aplicação inspirada no Pinterest, com backend em **Java** e integração de outras tecnologias para frontend e persistência de dados.
 
+**🌐 Acesse a plataforma:** [pinboard.railway.app](codigofonte-production.up.railway.app)
+
 ---
 
 ## 📚 Descrição do Projeto
