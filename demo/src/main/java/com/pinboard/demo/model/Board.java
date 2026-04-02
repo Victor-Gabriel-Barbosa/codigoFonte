@@ -1,5 +1,6 @@
 package com.pinboard.demo.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -16,61 +17,68 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Getter
 @Setter
-@ToString(exclude = "pins") // Excluímos pins do ToString para evitar recursão
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Board {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    private String name;
-    
-    private String description;
-    
-    private LocalDateTime createdAt;
-    
-    private String coverImageUrl;
-    
-    private boolean isPrivate;
-    
-    @ManyToOne
-    private User owner;
-    
-    @ManyToMany(mappedBy = "boards")
-    @ToString.Exclude // Excluímos esta coleção do ToString gerado
-    private Set<Pin> pins = new HashSet<>();
-    
-    // Método para adicionar um pin ao board
-    public void addPin(Pin pin) {
-        this.pins.add(pin);
-        pin.getBoards().add(this);
-    }
-    
-    // Método para remover um pin do board
-    public void removePin(Pin pin) {
-        this.pins.remove(pin);
-        pin.getBoards().remove(this);
-    }
-    
-    // Override do método equals para evitar recursão infinita
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Board board = (Board) o;
-        return id != null && Objects.equals(id, board.id);
-    }
-    
-    // Override do método hashCode para evitar recursão infinita
-    @Override
-    public int hashCode() {
-        // Usamos um valor constante para entidades não persistidas
-        return id == null ? 31 : Objects.hash(id);
-    }
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Board implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  private String name;
+
+  private String description;
+
+  private LocalDateTime createdAt;
+
+  private String coverImageUrl;
+
+  private boolean isPrivate;
+
+  @ManyToOne
+  private User owner;
+
+  @ManyToMany(mappedBy = "boards")
+  @ToString.Exclude // Exclui pins do ToString para evitar recursão
+  private Set<Pin> pins = new HashSet<>();
+
+  // Método para adicionar um pin ao board
+  public void addPin(Pin pin) {
+    this.pins.add(pin);
+    pin.getBoards().add(this);
+  }
+
+  // Método para remover um pin do board
+  public void removePin(Pin pin) {
+    this.pins.remove(pin);
+    pin.getBoards().remove(this);
+  }
+
+  // Override do método equals para evitar recursão infinita
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Board board = (Board) o;
+    return id != null && Objects.equals(id, board.id);
+  }
+
+  // Override do método hashCode para evitar recursão infinita
+  @Override
+  public int hashCode() {
+    // Usa um valor constante para entidades não persistidas
+    return id == null ? 31 : Objects.hash(id);
+  }
 }
