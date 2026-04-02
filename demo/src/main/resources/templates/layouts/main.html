@@ -1,101 +1,182 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="body(content)">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title} ? ${title} + ' | ' + ${appName} : ${appName}">Pinboard</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${title} ? ${title} + ' | ' + ${appName} : ${appName}">Pinboard</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon/favicon.ico}">
+  <link rel="apple-touch-icon" th:href="@{/favicon/apple-touch-icon.png}">
+  <link rel="manifest" th:href="@{/favicon/site.webmanifest}">
+  <link rel="icon" type="image/svg+xml" th:href="@{/favicon/favicon.svg}">
+  <link rel="icon" type="image/png" sizes="96x96" th:href="@{/favicon/favicon-96x96.png}">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
+
 <body>
-    <!-- Barra de navegação -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div class="container">
-            <a class="navbar-brand" th:href="@{/}">
-                <i class="fa fa-thumbtack"></i> <span th:text="${appName}">Pinboard</span>
+  <!-- Barra de navegação -->
+  <nav class="navbar navbar-expand-lg sticky-top custom-navbar">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/}">
+        <i class="fa fa-thumbtack brand-icon"></i> <span th:text="${appName}" class="brand-text">Pinboard</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" th:href="@{/}"><i class="fa fa-home nav-icon"></i> <span class="nav-text">Início</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" th:href="@{/pins}"><i class="fa fa-thumbtack nav-icon"></i> <span class="nav-text">Pins</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" th:href="@{/boards}"><i class="fa fa-th-large nav-icon"></i> <span class="nav-text">Boards</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" th:href="@{/activities}"><i class="fa fa-clock nav-icon"></i> <span class="nav-text">Atividades</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" th:href="@{/about}"><i class="fa fa-info-circle nav-icon"></i> <span class="nav-text">Sobre</span></a>
+          </li>
+        </ul>
+        <form class="d-flex search-form" th:action="@{/pins/search}" method="get">
+          <input class="form-control search-input" type="search" placeholder="Buscar" name="keyword" aria-label="Buscar">
+          <button class="search-button" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+        <ul class="navbar-nav ms-3">
+          <li class="nav-item dropdown" th:if="${session.currentUser != null}">
+            <a class="nav-link dropdown-toggle user-dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <div class="user-avatar-container">
+                <img th:if="${session.currentUser.profileImageUrl != null && !session.currentUser.profileImageUrl.isEmpty()}" 
+                     th:src="${session.currentUser.profileImageUrl}" 
+                     class="user-avatar" alt="Avatar">
+                <img th:unless="${session.currentUser.profileImageUrl != null && !session.currentUser.profileImageUrl.isEmpty()}" 
+                     th:src="@{/img/default-avatar.png}" 
+                     class="user-avatar" alt="Avatar padrão">
+              </div>
+              <span th:text="${#strings.abbreviate(session.currentUser.username, 15)}" class="user-name">Usuário</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}"><i class="fa fa-home"></i> Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/pins}"><i class="fa fa-thumbtack"></i> Pins</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/boards}"><i class="fa fa-th-large"></i> Boards</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/activities}"><i class="fa fa-clock"></i> Atividades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/about}"><i class="fa fa-info-circle"></i> Sobre</a>
-                    </li>
-                </ul>
-                <form class="d-flex" th:action="@{/pins/search}" method="get">
-                    <input class="form-control me-2" type="search" placeholder="Buscar..." name="keyword">
-                    <button class="btn btn-outline-danger" type="submit"><i class="fa fa-search"></i></button>
-                </form>
-                <ul class="navbar-nav ms-3">
-                    <li class="nav-item dropdown" th:if="${session.currentUser != null}">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-user-circle"></i> <span th:text="${session.currentUser.username}">Usuário</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Perfil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Configurações</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" th:href="@{/auth/logout}"><i class="fa fa-sign-out-alt"></i> Sair</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item" th:unless="${session.currentUser != null}">
-                        <a class="btn btn-outline-primary me-2" th:href="@{/auth/login}">
-                            <i class="fa fa-sign-in-alt"></i> Login
-                        </a>
-                    </li>
-                    <li class="nav-item" th:unless="${session.currentUser != null}">
-                        <a class="btn btn-primary" th:href="@{/auth/register}">
-                            <i class="fa fa-user-plus"></i> Cadastrar
-                        </a>
-                    </li>
-                </ul>
+            <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item dropdown-item-custom" th:href="@{/profile}"><i class="fa fa-user dropdown-icon"></i> Perfil</a></li>
+              <li><a class="dropdown-item dropdown-item-custom" href="#"><i class="fa fa-cog dropdown-icon"></i> Configurações</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item dropdown-item-custom" th:href="@{/auth/logout}"><i class="fa fa-sign-out-alt dropdown-icon"></i> Sair</a></li>
+            </ul>
+          </li>
+          <li class="nav-item" th:unless="${session.currentUser != null}">
+            <a class="btn btn-outline-primary auth-btn login-btn me-2" th:href="@{/auth/login}">
+              <i class="fa fa-sign-in-alt"></i> Login
+            </a>
+          </li>
+          <li class="nav-item" th:unless="${session.currentUser != null}">
+            <a class="btn btn-primary auth-btn register-btn" th:href="@{/auth/register}">
+              <i class="fa fa-user-plus"></i> Cadastrar
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main class="container my-4">
+    <div th:replace="${content}">
+      <!-- Conteúdo será injetado aqui -->
+    </div>
+  </main>
+
+  <!-- Rodapé personalizado -->
+  <footer class="footer-custom mt-5">
+    <div class="container pt-4">
+      <div class="row pt-3">
+        <!-- Coluna 1: Logo e informações -->
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <div class="d-flex align-items-center mb-3">
+            <i class="fa fa-thumbtack brand-icon me-2"></i>
+            <span class="footer-brand" th:text="${appName}">Pinboard</span>
+          </div>
+          <p class="text-muted mb-3">Sua plataforma para descobrir e salvar ideias criativas que inspiram seu próximo projeto.</p>
+          <p class="copyright-text">
+            &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span> 
+            <span th:text="${appName}">Pinboard</span>
+            <span th:if="${version}" class="ms-1 text-muted small" th:text="'v' + ${version}">v1.0.0</span>
+          </p>
+        </div>
+        
+        <!-- Coluna 2: Links úteis -->
+        <div class="col-lg-5 mb-4 mb-lg-0">
+          <div class="row">
+            <div class="col-6">
+              <h5 class="footer-heading">Explore</h5>
+              <ul class="footer-links list-unstyled">
+                <li><a th:href="@{/}" class="footer-link"><i class="fa fa-home me-2"></i>Início</a></li>
+                <li><a th:href="@{/pins}" class="footer-link"><i class="fa fa-thumbtack me-2"></i>Pins</a></li>
+                <li><a th:href="@{/boards}" class="footer-link"><i class="fa fa-th-large me-2"></i>Boards</a></li>
+                <li><a th:href="@{/activities}" class="footer-link"><i class="fa fa-clock me-2"></i>Atividades</a></li>
+              </ul>
             </div>
+            <div class="col-6">
+              <h5 class="footer-heading">Sobre</h5>
+              <ul class="footer-links list-unstyled">
+                <li><a th:href="@{/about}" class="footer-link"><i class="fa fa-info-circle me-2"></i>Quem somos</a></li>
+                <li><a th:href="@{/legal/terms}" class="footer-link"><i class="fa fa-file-contract me-2"></i>Termos de uso</a></li>
+                <li><a th:href="@{/legal/privacy}" class="footer-link"><i class="fa fa-shield-alt me-2"></i>Privacidade</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </nav>
-
-    <!-- Conteúdo principal -->
-    <main class="container my-4">
-        <div th:replace="${content}">
-            <!-- Conteúdo será injetado aqui -->
-        </div>
-    </main>
-
-    <!-- Rodapé -->
-    <footer class="bg-light py-3 mt-5">
-        <div class="container text-center">
-            <p class="mb-0">
-                <span th:text="${appName}">Pinboard</span> 
-                <span th:if="${version}" th:text="'v' + ${version}">v1.0.0</span>
-                &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}">2025</span>
-                - <a th:href="@{/about}" class="text-decoration-none">Sobre</a>
+        
+        <!-- Coluna 3: Acesso (Login/Cadastro) -->
+        <div class="col-lg-3" th:unless="${session.currentUser != null}">
+          <h5 class="footer-heading">Acesso</h5>
+          <div class="d-grid gap-3">
+            <a th:href="@{/auth/login}" class="btn btn-outline-primary footer-auth-btn">
+              <i class="fa fa-sign-in-alt me-2"></i>Entrar
+            </a>
+            <a th:href="@{/auth/register}" class="btn btn-danger footer-auth-btn">
+              <i class="fa fa-user-plus me-2"></i>Criar conta
+            </a>
+            <p class="text-muted small mt-2">
+              Junte-se a milhares de criadores e encontre inspiração para seus projetos.
             </p>
+          </div>
         </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script th:src="@{/js/main.js}"></script>
+        <!-- Coluna 3 (alternativa para usuários logados) -->
+        <div class="col-lg-3" th:if="${session.currentUser != null}">
+          <h5 class="footer-heading">Minha conta</h5>
+          <ul class="footer-links list-unstyled">
+            <li><a th:href="@{/profile}" class="footer-link"><i class="fa fa-user me-2"></i>Perfil de <span th:text="${#strings.abbreviate(session.currentUser.username, 10)}">Usuário</span></a></li>
+            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=boards'}" class="footer-link"><i class="fa fa-th-large me-2"></i>Meus boards</a></li>
+            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=pins'}" class="footer-link"><i class="fa fa-thumbtack me-2"></i>Meus pins</a></li>
+            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=saved'}" class="footer-link"><i class="fa fa-bookmark me-2"></i>Pins salvos</a></li>
+            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=saved-boards'}" class="footer-link"><i class="fa fa-heart me-2"></i>Boards salvos</a></li>
+            <li><a th:href="@{/auth/logout}" class="footer-link text-danger"><i class="fa fa-sign-out-alt me-2"></i>Sair</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script th:src="@{/js/main.js}"></script>
 </body>
+
 </html>
