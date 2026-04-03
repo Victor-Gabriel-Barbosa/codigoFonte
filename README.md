@@ -21,7 +21,7 @@ O projeto consiste em um **Pinterest Clone**, permitindo aos usuários:
 
 <p align="center">
   <img width="1000" alt="437992238-b648f428-3277-404f-9780-9330d0dde63f" src="https://github.com/user-attachments/assets/e9ed72e5-f600-4ed6-935b-6a12a6c11d13" />
-  <img width="1000" alt="437992236-144594a6-11e7-417d-a876-5936b5dcceaf" src="https://github.com/user-attachments/assets/c88afa2d-f161-4b75-acaf-b3aeb90aafed" />
+  <img width="1000" alt="image" src="https://github.com/user-attachments/assets/3a0f67d0-f6a0-4e70-91fb-2816a611141d" />
   <img width="1000" alt="437991023-66f33544-cdd5-4ced-ae86-0d074a2b71a1" src="https://github.com/user-attachments/assets/2ca6f614-d3ce-4558-b38f-08953165e77c" />
 </p>
 
