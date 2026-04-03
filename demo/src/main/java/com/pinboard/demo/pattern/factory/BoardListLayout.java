@@ -35,7 +35,7 @@ public class BoardListLayout implements BoardLayout {
       html.append("<div class='board-list-image me-3' style='width: 180px;'>");
       html.append("<img src='").append(board.getCoverImageUrl() != null && !board.getCoverImageUrl().isEmpty()
           ? board.getCoverImageUrl()
-          : "https://via.placeholder.com/180x120")
+          : "https://i.pinimg.com/1200x/cf/2e/46/cf2e467faf7c4349e6c5c11dc979ca64.jpg")
           .append("' class='img-fluid rounded' style='height: 120px; object-fit: cover;' alt='Board Cover'>");
       html.append("</div>");
 

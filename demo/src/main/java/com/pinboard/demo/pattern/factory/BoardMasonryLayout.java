@@ -35,7 +35,7 @@ public class BoardMasonryLayout implements BoardLayout {
       // Imagem de capa
       html.append("<img src='").append(board.getCoverImageUrl() != null && !board.getCoverImageUrl().isEmpty()
           ? board.getCoverImageUrl()
-          : "https://via.placeholder.com/400x200")
+          : "https://i.pinimg.com/736x/3a/7c/32/3a7c323887959982c39505b69a905158.jpg")
           .append("' class='card-img-top' alt='Board Cover'>");
 
       // Corpo do card

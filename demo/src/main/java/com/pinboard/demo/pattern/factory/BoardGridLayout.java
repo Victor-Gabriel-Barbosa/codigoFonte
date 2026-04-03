@@ -33,7 +33,7 @@ public class BoardGridLayout implements BoardLayout {
       // Imagem de capa
       html.append("<img src='").append(board.getCoverImageUrl() != null && !board.getCoverImageUrl().isEmpty()
           ? board.getCoverImageUrl()
-          : "https://via.placeholder.com/400x200")
+          : "https://i.pinimg.com/736x/86/c7/8d/86c78d5bcb6cf6c283e537750dfcc58b.jpg")
           .append("' class='card-img-top' alt='Board Cover'>");
 
       // Corpo do card
