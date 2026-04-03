@@ -98,7 +98,7 @@ public class DemoApplication {
             Pin pin2 = new Pin();
             pin2.setTitle("Tipografia Criativa");
             pin2.setDescription("Exemplos de tipografia para inspirar seus projetos");
-            pin2.setImageUrl("https://images.unsplash.com/photo-1517998873486-b1d89e52b374");
+            pin2.setImageUrl("https://i.pinimg.com/736x/14/a7/35/14a735ad7ed12d7c7d4afeebb89e018e.jpg");
             pin2.setLikes(27);
             pin2.setCreatedAt(LocalDateTime.now().minusDays(3));
             pin2.setCreator(user1);
