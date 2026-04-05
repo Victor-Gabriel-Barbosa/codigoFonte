@@ -11,15 +11,15 @@
     <!-- Barra superior fixa com opções -->
     <div class="bg-white shadow-sm py-3 border-bottom mb-4">
       <div class="container">
-        <div class="d-flex flex-wrap justify-content-between align-items-center">
-          <div class="d-flex align-items-center">
-            <h1 class="h3 m-0 me-4">Descubra</h1>
-            <div class="d-flex align-items-center">
-              <div class="btn-group me-3">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+          <div class="d-flex flex-wrap align-items-center gap-3">
+            <h1 class="h3 m-0">Descubra</h1>
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <div class="btn-group">
                 <button type="button" class="btn btn-sm rounded-pill px-3 btn-light border active">Todos</button>
                 <button type="button" class="btn btn-sm rounded-pill px-3 btn-light border">Seguindo</button>
               </div>
-              <div class="dropdown me-2">
+              <div class="dropdown">
                 <button class="btn btn-sm btn-light rounded-pill border dropdown-toggle px-3" type="button"
                   id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa fa-sort me-1"></i> Ordenar
@@ -34,7 +34,7 @@
             </div>
           </div>
           <a class="btn btn-danger btn-sm rounded-pill px-3" th:href="@{/pins/new}">
-            <i class="fa fa-plus-circle me-1"></i> Criar Pin
+            <i class="fa fa-plus-circle me-1"></i> <span class="d-none d-sm-inline">Criar</span> Pin
           </a>
         </div>
       </div>
@@ -333,6 +333,15 @@
       @media (max-width: 576px) {
         .pins-masonry {
           columns: 2 150px;
+        }
+        .btn-group .btn-sm,
+        .dropdown-toggle.btn-sm {
+          padding: 0.25rem 0.5rem;
+          font-size: 0.8rem;
+        }
+        .btn-danger.btn-sm {
+          width: 100%;
+          text-align: center;
         }
       }
     </style>
