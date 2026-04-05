@@ -14,7 +14,7 @@
           <div class="card-body">
             <div class="row">
               <!-- Avatar do usuário -->
-              <div class="col-md-3 text-center">
+              <div class="col-12 col-md-3 text-center mb-3">
                 <img th:if="${profileUser.profileImageUrl != null && !profileUser.profileImageUrl.isEmpty()}" th:src="${profileUser.profileImageUrl}"
                   class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;"
                   alt="Foto de perfil">
@@ -34,14 +34,14 @@
                   Sem biografia
                 </p>
 
-                <div class="d-flex mb-3">
-                  <div class="me-4">
+                <div class="d-flex flex-wrap mb-3">
+                  <div class="me-4 mb-2">
                     <strong th:text="${profileUser.boards.size()}">0</strong> boards
                   </div>
-                  <div class="me-4">
+                  <div class="me-4 mb-2">
                     <strong th:text="${profileUser.pins.size()}">0</strong> pins
                   </div>
-                  <div class="me-4">
+                  <div class="me-4 mb-2">
                     <strong th:text="${profileUser.followers.size()}">0</strong> seguidores
                   </div>
                   <div>
