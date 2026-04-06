@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pinboard.demo.model.User;
+import com.pinboard.demo.pattern.singleton.ConfigurationManager;
 import com.pinboard.demo.service.PinService;
 import com.pinboard.demo.service.UserService;
 
@@ -30,6 +31,8 @@ public class ProfileController {
 
   @Autowired
   private PinService pinService;
+
+  private final ConfigurationManager configManager = ConfigurationManager.getInstance();
 
   // Exibe o perfil do usuário logado
   @GetMapping("")
@@ -92,6 +95,8 @@ public class ProfileController {
       model.addAttribute("isOwnProfile", false);
     }
 
+    model.addAttribute("appName", configManager.getAppName());
+
     return "profile/show";
   }
 
@@ -133,6 +138,8 @@ public class ProfileController {
       model.addAttribute("isOwnProfile", false);
     }
 
+    model.addAttribute("appName", configManager.getAppName());
+
     return "profile/show";
   }
 
@@ -173,6 +180,8 @@ public class ProfileController {
       model.addAttribute("isFollowing", false);
       model.addAttribute("isOwnProfile", false);
     }
+
+    model.addAttribute("appName", configManager.getAppName());
 
     return "profile/show";
   }
@@ -227,6 +236,7 @@ public class ProfileController {
 
     model.addAttribute("user", currentUser);
     model.addAttribute("title", "Editar Perfil");
+    model.addAttribute("appName", configManager.getAppName());
 
     return "profile/edit";
   }
@@ -279,6 +289,7 @@ public class ProfileController {
     if (currentUser == null) return "redirect:/auth/login";
 
     model.addAttribute("title", "Alterar Senha");
+    model.addAttribute("appName", configManager.getAppName());
     return "profile/change-password";
   }
 
