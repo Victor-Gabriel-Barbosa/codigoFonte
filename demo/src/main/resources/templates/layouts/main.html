@@ -57,7 +57,18 @@
             <i class="fa fa-search"></i>
           </button>
         </form>
-        <ul class="navbar-nav ms-3">
+        <ul class="navbar-nav ms-3 align-items-center">
+          <!-- Theme Selector -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="themeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-circle-notch" id="themeIcon"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="themeDropdown">
+              <li><a class="dropdown-item dropdown-item-custom theme-option" href="#" data-theme="light"><i class="fa fa-sun dropdown-icon"></i> Light</a></li>
+              <li><a class="dropdown-item dropdown-item-custom theme-option" href="#" data-theme="dark"><i class="fa fa-moon dropdown-icon"></i> Dark</a></li>
+              <li><a class="dropdown-item dropdown-item-custom theme-option" href="#" data-theme="system"><i class="fa fa-desktop dropdown-icon"></i> System</a></li>
+            </ul>
+          </li>
           <li class="nav-item dropdown" th:if="${session.currentUser != null}">
             <a class="nav-link dropdown-toggle user-dropdown" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">

@@ -28,6 +28,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // Theme selector
+  const themeOptions = document.querySelectorAll('.theme-option');
+  const savedTheme = localStorage.getItem('theme') || 'system';
+  applyTheme(savedTheme);
+
+  themeOptions.forEach(option => {
+    option.addEventListener('click', function (e) {
+      e.preventDefault();
+      const theme = this.getAttribute('data-theme');
+      localStorage.setItem('theme', theme);
+      applyTheme(theme);
+      // Close dropdown
+      const dropdown = bootstrap.Dropdown.getInstance(document.getElementById('themeDropdown'));
+      if (dropdown) dropdown.hide();
+    });
+  });
+
   // Comportamento minimalista para a barra de pesquisa
   const searchForm = document.querySelector('.search-form');
   if (searchForm) {
@@ -103,3 +120,25 @@ function adjustMasonryLayout() {
     grid.style.height = Math.max(...columnHeights) + 'px';
   });
 }
+
+// Theme application
+function applyTheme(theme) {
+  let resolvedTheme = theme;
+  if (theme === 'system') {
+    resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-bs-theme', resolvedTheme === 'dark' ? 'dark' : 'light');
+
+  // Update icon based on resolved theme
+  const icon = document.getElementById('themeIcon');
+  if (icon) {
+    icon.className = resolvedTheme === 'dark' ? 'fa fa-moon' : 'fa fa-sun';
+  }
+}
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+  if (localStorage.getItem('theme') === 'system') {
+    applyTheme('system');
+  }
+});
