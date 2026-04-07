@@ -82,13 +82,13 @@
               <p class="card-text">Escolha como deseja visualizar os pins neste board:</p>
               <div class="d-grid gap-2">
                 <a th:href="@{/boards/{id}(id=${board.id}, layout='grid')}" class="btn btn-outline-primary" th:classappend="${currentLayout == 'grid' ? 'active' : ''}">
-                  <i class="fa fa-th"></i> Grid Layout
+                  <i class="fa fa-th"></i> Grade
                 </a>
                 <a th:href="@{/boards/{id}(id=${board.id}, layout='masonry')}" class="btn btn-outline-primary" th:classappend="${currentLayout == 'masonry' ? 'active' : ''}">
-                  <i class="fa fa-th-large"></i> Masonry Layout
+                  <i class="fa fa-th-large"></i> Cascata
                 </a>
                 <a th:href="@{/boards/{id}(id=${board.id}, layout='list')}" class="btn btn-outline-primary" th:classappend="${currentLayout == 'list' ? 'active' : ''}">
-                  <i class="fa fa-list"></i> List Layout
+                  <i class="fa fa-list"></i> Lista
                 </a>
               </div>
             </div>

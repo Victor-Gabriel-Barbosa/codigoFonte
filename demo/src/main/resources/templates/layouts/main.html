@@ -73,7 +73,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end custom-dropdown" aria-labelledby="userDropdown">
               <li><a class="dropdown-item dropdown-item-custom" th:href="@{/profile}"><i class="fa fa-user dropdown-icon"></i> Perfil</a></li>
-              <li><a class="dropdown-item dropdown-item-custom" href="#"><i class="fa fa-cog dropdown-icon"></i> Configurações</a></li>
+              <li><a class="dropdown-item dropdown-item-custom" th:href="@{/profile/edit}"><i class="fa fa-cog dropdown-icon"></i> Configurações</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item dropdown-item-custom" th:href="@{/auth/logout}"><i class="fa fa-sign-out-alt dropdown-icon"></i> Sair</a></li>
             </ul>
@@ -162,10 +162,10 @@
           <h5 class="footer-heading">Minha conta</h5>
           <ul class="footer-links list-unstyled">
             <li><a th:href="@{/profile}" class="footer-link"><i class="fa fa-user me-2"></i>Perfil de <span th:text="${#strings.abbreviate(session.currentUser.username, 10)}">Usuário</span></a></li>
-            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=boards'}" class="footer-link"><i class="fa fa-th-large me-2"></i>Meus boards</a></li>
             <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=pins'}" class="footer-link"><i class="fa fa-thumbtack me-2"></i>Meus pins</a></li>
             <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=saved'}" class="footer-link"><i class="fa fa-bookmark me-2"></i>Pins salvos</a></li>
-            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=saved-boards'}" class="footer-link"><i class="fa fa-heart me-2"></i>Boards salvos</a></li>
+            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=favorites'}" class="footer-link"><i class="fa fa-heart me-2"></i>Pins favoritos</a></li>
+            <li><a th:href="@{'/profile/' + ${session.currentUser.username} + '?tab=boards'}" class="footer-link"><i class="fa fa-th-large me-2"></i>Meus boards</a></li>
             <li><a th:href="@{/auth/logout}" class="footer-link text-danger"><i class="fa fa-sign-out-alt me-2"></i>Sair</a></li>
           </ul>
         </div>
