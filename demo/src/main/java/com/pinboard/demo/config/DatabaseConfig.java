@@ -37,7 +37,7 @@ public class DatabaseConfig {
         String pgPort = getEnvOrDefault("PGPORT", "5432");
         String pgDatabase = getEnvOrDefault("PGDATABASE", "pinboard");
         String pgUser = getEnvOrDefault("PGUSER", "postgres");
-        String pgPassword = getEnvOrDefault("PGPASSWORD", "");
+        String pgPassword = getEnvOrDefault("PGPASSWORD", "135790");
 
         String jdbcUrl = "jdbc:postgresql://" + pgHost + ":" + pgPort + "/" + pgDatabase;
 
@@ -82,7 +82,7 @@ public class DatabaseConfig {
     }
 
     private String getEnvOrDefault(String name, String defaultValue) {
-        String value = System.getenv(name);
+        String value = env.getProperty(name);
         return (value != null && !value.isEmpty()) ? value : defaultValue;
     }
 }
